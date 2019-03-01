@@ -1,0 +1,6 @@
+Seattle 1
+Los Angeles 1
+Tempe 1
+Miami 1
+Fort Lauderdale 1
+Seattle 1
