@@ -19,8 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author linzcar20
  */
-public class MyJFrame extends javax.swing.JFrame
-{
+public class MyJFrame extends javax.swing.JFrame {
 
     private ArrayList<Destination> destinations = new ArrayList<Destination>();
     private ArrayList<Airport> ap = new ArrayList<Airport>();
@@ -35,9 +34,8 @@ public class MyJFrame extends javax.swing.JFrame
         ArrayList<String> files = new ArrayList<String>();
         output.setEditable(false);
     }
-    
-    public MyJFrame()
-    {
+
+    public MyJFrame() {
         initComponents();
         destinations.add(new Destination("Seattle", 1));
         ArrayList<String> files = new ArrayList<String>();
@@ -226,15 +224,14 @@ public class MyJFrame extends javax.swing.JFrame
     {//GEN-HEADEREND:event_addButtonMouseClicked
         // TODO add your handling code here:
         boolean exists = false;
-        for (int i =0; i< ap.size(); i++) {
+        for (int i = 0; i < ap.size(); i++) {
             Airport a = ap.get(i);
             if (a.getCity().toLowerCase().equals(dest.getText().toLowerCase())) {
                 exists = true;
                 break;
             }
         }
-        if (!destinations.get(destinations.size() - 1).getLocation().equals(dest.getText()) && exists)
-        {
+        if (!destinations.get(destinations.size() - 1).getLocation().equals(dest.getText()) && exists) {
             destinations.add(new Destination(capitalize(dest.getText()), ppl.getSelectedIndex() + 1));
             output.setText("Added");
         } else {
@@ -266,22 +263,18 @@ public class MyJFrame extends javax.swing.JFrame
     private void saveTripButtonMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_saveTripButtonMouseClicked
     {//GEN-HEADEREND:event_saveTripButtonMouseClicked
         PrintStream p = null;
-        try
-        {
+        try {
             // TODO add your handling code here:
             p = new PrintStream(new File("C:" + File.separator + "\\Users\\linzcar20\\Documents\\NetBeansProjects\\JFRAMEZZZZ69\\Trips" + File.separator + tripName.getText().trim() + ".txt"));
             tripName.setText("");
-            for (int i = destinations.size(); i > 0; i--)
-            {
+            for (int i = destinations.size(); i > 0; i--) {
                 p.println(destinations.get(destinations.size() - i).getLocation() + " " + destinations.get(destinations.size() - i).getNumPeople());
             }
             System.out.println((char) 27 + "[32mGreat Success!" + (char) 27 + "[0m");
             output.setText("Great Success");
-        } catch (FileNotFoundException ex)
-        {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(MyJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } finally
-        {
+        } finally {
             p.close();
         }
     }//GEN-LAST:event_saveTripButtonMouseClicked
@@ -299,36 +292,29 @@ public class MyJFrame extends javax.swing.JFrame
         // TODO add your handling code here:
         JFileChooser j = new JFileChooser();
         j.setCurrentDirectory(new File("C:" + File.separator + "\\Users\\linzcar20\\Documents\\NetBeansProjects\\JFRAMEZZZZ69\\Trips"));
-        int selection = 22;
-        while (selection != JFileChooser.APPROVE_OPTION)
-        {
-            selection = j.showOpenDialog(null);
-        }
-        File selected = j.getSelectedFile();
-        try
-        {
-            Scanner carl = new Scanner(selected);
-            destinations.clear();
-            String pl = "";
-            while (carl.hasNextLine())
-            {
-                if (carl.hasNext())
-                {
-                    while (!carl.hasNextInt())
-                    {
-                        pl += carl.next() + " ";
+        int selection = j.showOpenDialog(null);
+        if (selection == 0) {
+            File selected = j.getSelectedFile();
+            try {
+                Scanner carl = new Scanner(selected);
+                destinations.clear();
+                String pl = "";
+                while (carl.hasNextLine()) {
+                    if (carl.hasNext()) {
+                        while (!carl.hasNextInt()) {
+                            pl += carl.next() + " ";
+                        }
+                        destinations.add(new Destination(pl.trim(), carl.nextInt()));
+                        pl = "";
+                    } else {
+                        break;
                     }
-                    destinations.add(new Destination(pl.trim(), carl.nextInt()));
-                    pl = "";
-                } else {
-                    break;
                 }
+                output.setText("Opened");
+            } catch (FileNotFoundException ex) {
+                output.setText("ERROR");
+                Logger.getLogger(MyJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            output.setText("Opened");
-        } catch (FileNotFoundException ex)
-        {
-            output.setText("ERROR");
-            Logger.getLogger(MyJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_openTripMouseClicked
 
@@ -358,14 +344,14 @@ public class MyJFrame extends javax.swing.JFrame
     // End of variables declaration//GEN-END:variables
 
     public String capitalize(String s) {
-        Scanner sc = new Scanner (s);
+        Scanner sc = new Scanner(s);
         String temp;
         s = "";
-        while(sc.hasNext()) {
+        while (sc.hasNext()) {
             temp = sc.next();
             s += " " + temp.substring(0, 1).toUpperCase() + temp.substring(1);
         }
         return s.trim();
     }
-    
- }
+
+}
