@@ -5,7 +5,6 @@
  */
 package jframezzzz69;
 
-import com.sun.xml.internal.ws.util.StringUtils;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,7 +27,6 @@ public class JFRAMEZZZZ69
      */
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
-        System.out.println(StringUtils.capitalize("aeLlo mAte"));
         ArrayList<Airport> ap = new ArrayList<Airport>();
         System.out.println("Loading Databases");
         loadAirports(ap);

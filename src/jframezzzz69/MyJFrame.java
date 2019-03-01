@@ -235,7 +235,7 @@ public class MyJFrame extends javax.swing.JFrame
         }
         if (!destinations.get(destinations.size() - 1).getLocation().equals(dest.getText()) && exists)
         {
-            destinations.add(new Destination(dest.getText(), ppl.getSelectedIndex() + 1));
+            destinations.add(new Destination(capitalize(dest.getText()), ppl.getSelectedIndex() + 1));
             output.setText("Added");
         } else {
             if (exists) {
@@ -357,4 +357,15 @@ public class MyJFrame extends javax.swing.JFrame
     private javax.swing.JButton viewTrip;
     // End of variables declaration//GEN-END:variables
 
-}
+    public String capitalize(String s) {
+        Scanner sc = new Scanner (s);
+        String temp;
+        s = "";
+        while(sc.hasNext()) {
+            temp = sc.next();
+            s += " " + temp.substring(0, 1).toUpperCase() + temp.substring(1);
+        }
+        return s.trim();
+    }
+    
+ }
