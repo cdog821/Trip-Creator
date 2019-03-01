@@ -5,14 +5,11 @@
  */
 package jframezzzz69;
 
+import com.sun.xml.internal.ws.util.StringUtils;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,11 +28,12 @@ public class JFRAMEZZZZ69
      */
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
+        System.out.println(StringUtils.capitalize("aeLlo mAte"));
         ArrayList<Airport> ap = new ArrayList<Airport>();
         System.out.println("Loading Databases");
         loadAirports(ap);
         System.out.println(ap.get(5421));
-        MyJFrame jf = new MyJFrame();
+        MyJFrame jf = new MyJFrame(ap);
         jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jf.setVisible(true);
     }
@@ -51,7 +49,6 @@ public class JFRAMEZZZZ69
             lines.add(temp);
         }
         reader.close();
-        System.out.println(lines.get(5));
         for (int i = 0; i < lines.size(); i++)
         {
             String x = lines.get(i);
@@ -71,7 +68,6 @@ public class JFRAMEZZZZ69
                 }
             }
             Scanner sc = new Scanner(z);
-            System.out.println(z);
             sc.next();
             sc.next();
             temp = "";

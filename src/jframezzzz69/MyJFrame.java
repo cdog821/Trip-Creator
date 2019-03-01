@@ -23,10 +23,19 @@ public class MyJFrame extends javax.swing.JFrame
 {
 
     private ArrayList<Destination> destinations = new ArrayList<Destination>();
+    private ArrayList<Airport> ap = new ArrayList<Airport>();
 
     /**
      * Creates new form MyJFrame
      */
+    public MyJFrame(ArrayList<Airport> ap) {
+        this.ap = ap;
+        initComponents();
+        destinations.add(new Destination("Seattle", 1));
+        ArrayList<String> files = new ArrayList<String>();
+        output.setEditable(false);
+    }
+    
     public MyJFrame()
     {
         initComponents();
@@ -43,15 +52,14 @@ public class MyJFrame extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        dButton = new javax.swing.JButton();
+        dest = new javax.swing.JTextField();
+        addButton = new javax.swing.JButton();
         viewTrip = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        ppl = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         saveTripButton = new javax.swing.JButton();
         tripName = new javax.swing.JTextField();
@@ -65,55 +73,43 @@ public class MyJFrame extends javax.swing.JFrame
 
         jLabel1.setText("Enter your destination");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jTextField1ActionPerformed(evt);
+        dest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                destActionPerformed(evt);
             }
         });
 
-        dButton.setText("Add");
-        dButton.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                dButtonMouseClicked(evt);
+        addButton.setText("Add");
+        addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addButtonMouseClicked(evt);
             }
         });
 
         viewTrip.setText("View Trip");
-        viewTrip.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        viewTrip.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewTripMouseClicked(evt);
             }
         });
-        viewTrip.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        viewTrip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewTripActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5+" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jComboBox1ActionPerformed(evt);
+        ppl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5+" }));
+        ppl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pplActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Amount of people");
 
         saveTripButton.setText("Save Trip");
-        saveTripButton.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        saveTripButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 saveTripButtonMouseClicked(evt);
             }
         });
@@ -121,27 +117,21 @@ public class MyJFrame extends javax.swing.JFrame
         jLabel3.setText("Trip Name");
 
         openTrip.setText("Open Trip");
-        openTrip.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        openTrip.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 openTripMouseClicked(evt);
             }
         });
 
         clearTrip.setText("Clear Trip");
-        clearTrip.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        clearTrip.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clearTripMouseClicked(evt);
             }
         });
 
-        output.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        output.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 outputActionPerformed(evt);
             }
         });
@@ -176,14 +166,14 @@ public class MyJFrame extends javax.swing.JFrame
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dest, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(70, 70, 70)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ppl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(60, 60, 60)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(saveTripButton)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(dButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(42, 42, 42)
                                         .addComponent(viewTrip)))))
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -197,9 +187,9 @@ public class MyJFrame extends javax.swing.JFrame
                     .addComponent(jLabel2))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dButton)
+                    .addComponent(dest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ppl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addButton)
                     .addComponent(viewTrip))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -227,21 +217,35 @@ public class MyJFrame extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextField1ActionPerformed
-    {//GEN-HEADEREND:event_jTextField1ActionPerformed
+    private void destActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_destActionPerformed
+    {//GEN-HEADEREND:event_destActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_destActionPerformed
 
-    private void dButtonMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_dButtonMouseClicked
-    {//GEN-HEADEREND:event_dButtonMouseClicked
+    private void addButtonMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_addButtonMouseClicked
+    {//GEN-HEADEREND:event_addButtonMouseClicked
         // TODO add your handling code here:
-        if (!destinations.get(destinations.size() - 1).getLocation().equals(jTextField1.getText()))
-        {
-            destinations.add(new Destination(jTextField1.getText(), jComboBox1.getSelectedIndex() + 1));
-            output.setText("Added");
+        boolean exists = false;
+        for (int i =0; i< ap.size(); i++) {
+            Airport a = ap.get(i);
+            if (a.getCity().toLowerCase().equals(dest.getText().toLowerCase())) {
+                exists = true;
+                break;
+            }
         }
-        jTextField1.setText("");
-    }//GEN-LAST:event_dButtonMouseClicked
+        if (!destinations.get(destinations.size() - 1).getLocation().equals(dest.getText()) && exists)
+        {
+            destinations.add(new Destination(dest.getText(), ppl.getSelectedIndex() + 1));
+            output.setText("Added");
+        } else {
+            if (exists) {
+                output.setText("You are already in this city");
+            } else {
+                output.setText("City does not exist");
+            }
+        }
+        dest.setText("");
+    }//GEN-LAST:event_addButtonMouseClicked
 
     private void viewTripActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_viewTripActionPerformed
     {//GEN-HEADEREND:event_viewTripActionPerformed
@@ -251,14 +255,13 @@ public class MyJFrame extends javax.swing.JFrame
     private void viewTripMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_viewTripMouseClicked
     {//GEN-HEADEREND:event_viewTripMouseClicked
         // TODO add your handling code here:
-        String a = destinations.toString();
-        output.setText(a);
+        output.setText(destinations.toString());
     }//GEN-LAST:event_viewTripMouseClicked
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
-    {//GEN-HEADEREND:event_jComboBox1ActionPerformed
+    private void pplActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_pplActionPerformed
+    {//GEN-HEADEREND:event_pplActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_pplActionPerformed
 
     private void saveTripButtonMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_saveTripButtonMouseClicked
     {//GEN-HEADEREND:event_saveTripButtonMouseClicked
@@ -339,16 +342,16 @@ public class MyJFrame extends javax.swing.JFrame
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
     private javax.swing.JButton clearTrip;
-    private javax.swing.JButton dButton;
+    private javax.swing.JTextField dest;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton openTrip;
     private javax.swing.JTextField output;
+    private javax.swing.JComboBox ppl;
     private javax.swing.JButton saveTripButton;
     private javax.swing.JTextField tripName;
     private javax.swing.JButton viewTrip;
