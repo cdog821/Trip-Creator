@@ -11,6 +11,7 @@ package jframezzzz69;
  */
 public class Destination
 {
+    private String airport; 
     private String location;
     private int numPeople;
     
@@ -23,7 +24,7 @@ public class Destination
     }
     
     public String toString() {
-        return "Loc: " + location + ", Ppl: " + numPeople;
+        return location + ", " + numPeople + " people, at " + airport;
     }
 
     public String getLocation()
