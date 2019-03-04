@@ -30,7 +30,6 @@ public class JFRAMEZZZZ69
         ArrayList<Airport> ap = new ArrayList<Airport>();
         System.out.println("Loading Databases");
         loadAirports(ap);
-        System.out.println(ap.get(5421));
         MyJFrame jf = new MyJFrame(ap);
         jf.setLocation(400, 250);
         jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
