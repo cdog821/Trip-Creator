@@ -112,4 +112,8 @@ public class Airport
         this.c = c;
     }
 
+    public String getName() {
+        return name;
+    }
+
 }
