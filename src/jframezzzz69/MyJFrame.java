@@ -48,6 +48,10 @@ public class MyJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        apChoosePanel = new javax.swing.JPanel();
+        apNames = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        chooseB = new javax.swing.JButton();
         sidePanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         create = new javax.swing.JButton();
@@ -78,12 +82,49 @@ public class MyJFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         startPeople = new javax.swing.JComboBox<String>();
         startButton = new javax.swing.JButton();
-        apChoosePanel = new javax.swing.JPanel();
-        apNames = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trip  Creator");
+
+        jLabel7.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
+        jLabel7.setText("Choose Airport");
+
+        chooseB.setText("Choose");
+        chooseB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                chooseBMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout apChoosePanelLayout = new javax.swing.GroupLayout(apChoosePanel);
+        apChoosePanel.setLayout(apChoosePanelLayout);
+        apChoosePanelLayout.setHorizontalGroup(
+            apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(apChoosePanelLayout.createSequentialGroup()
+                .addContainerGap(167, Short.MAX_VALUE)
+                .addGroup(apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apChoosePanelLayout.createSequentialGroup()
+                        .addComponent(apNames, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(156, 156, 156))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apChoosePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(222, 222, 222))))
+            .addGroup(apChoosePanelLayout.createSequentialGroup()
+                .addGap(231, 231, 231)
+                .addComponent(chooseB)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        apChoosePanelLayout.setVerticalGroup(
+            apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(apChoosePanelLayout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(apNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(chooseB)
+                .addContainerGap(161, Short.MAX_VALUE))
+        );
 
         jLabel4.setFont(new java.awt.Font("Tempus Sans ITC", 0, 36)); // NOI18N
         jLabel4.setText("Welcome to TripCreator");
@@ -372,33 +413,6 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addContainerGap(148, Short.MAX_VALUE))
         );
 
-        jLabel7.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
-        jLabel7.setText("Choose Airport");
-
-        javax.swing.GroupLayout apChoosePanelLayout = new javax.swing.GroupLayout(apChoosePanel);
-        apChoosePanel.setLayout(apChoosePanelLayout);
-        apChoosePanelLayout.setHorizontalGroup(
-            apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(apChoosePanelLayout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
-                .addGroup(apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apChoosePanelLayout.createSequentialGroup()
-                        .addComponent(apNames, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(156, 156, 156))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apChoosePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(222, 222, 222))))
-        );
-        apChoosePanelLayout.setVerticalGroup(
-            apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(apChoosePanelLayout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(apNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(215, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -469,7 +483,7 @@ public class MyJFrame extends javax.swing.JFrame {
 
     private void startButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startButtonMouseClicked
         // TODO add your handling code here:
-        if (exist(startLocation.getText())) {
+        if (!exist(startLocation.getText()).isEmpty()) {
             destinations.add(new Destination(capitalize(startLocation.getText()), startPeople.getSelectedIndex() + 1));
             createPanel.setVisible(false);
             mainPanel.setVisible(true);
@@ -486,7 +500,7 @@ public class MyJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         destinations.clear();
         if (!startLocation.getText().equals("")) {
-            destinations.add(new Destination(startLocation.getText(), startPeople.getSelectedIndex()+1));
+            destinations.add(new Destination(startLocation.getText(), startPeople.getSelectedIndex() + 1));
         }
     }//GEN-LAST:event_clearTripMouseClicked
 
@@ -512,23 +526,23 @@ public class MyJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String[] dests = new String[destinations.size()];
         for (int i = 0; i < destinations.size(); i++) {
-            dests[i] = (i+1) + " - " + destinations.get(i).toString();
+            dests[i] = (i + 1) + " - " + destinations.get(i).toString();
         }
         outList.setListData(dests);
     }//GEN-LAST:event_viewTripMouseClicked
 
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         // TODO add your handling code here:
-        boolean exists = exist(dest.getText());
-        if (destinations.isEmpty() && exists) {
-            destinations.add(new Destination(capitalize(dest.getText()), ppl.getSelectedIndex()+1));
-            output.setText("Added");
-        } else if (!destinations.get(destinations.size() - 1).getLocation().equals(dest.getText()) && exists) {
-
+        ArrayList<Integer> ind = exist(dest.getText());
+        if (dest.getText().equals("")) {
+            output.setText("Enter a City");
+        } else if (destinations.isEmpty() && !ind.isEmpty()) {
             destinations.add(new Destination(capitalize(dest.getText()), ppl.getSelectedIndex() + 1));
             output.setText("Added");
+        } else if (!destinations.get(destinations.size() - 1).getLocation().equals(dest.getText()) && !ind.isEmpty()) {
+            apChoose(ind);
         } else {
-            if (exists) {
+            if (!ind.isEmpty()) {
                 output.setText("You are already in this city");
             } else {
                 output.setText("City does not exist");
@@ -558,9 +572,24 @@ public class MyJFrame extends javax.swing.JFrame {
         if (editMode) {
             editItem editor = new editItem(destinations.get(outList.getSelectedIndex()));
         }
-        
-        
+
+
     }//GEN-LAST:event_outListMouseClicked
+
+    private void chooseBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chooseBMouseClicked
+        // TODO add your handling code here:
+        String s = (String) apNames.getSelectedItem();
+        String city = null;
+        for (int i = 0; i < ap.size(); i++) {
+            if (ap.get(i).getName().equals(s)) {
+                city = ap.get(i).getCity();
+                break;
+            }
+        }
+        destinations.add(new Destination(city, s, ppl.getSelectedIndex()+1));
+        mainPanel.setVisible(true);
+        apChoosePanel.setVisible(false);
+    }//GEN-LAST:event_chooseBMouseClicked
 
     /**
      * @param args the command line arguments
@@ -570,6 +599,7 @@ public class MyJFrame extends javax.swing.JFrame {
     private javax.swing.JButton addButton;
     private javax.swing.JPanel apChoosePanel;
     private javax.swing.JComboBox apNames;
+    private javax.swing.JButton chooseB;
     private javax.swing.JButton clearTrip;
     private javax.swing.JButton confirmButton;
     private javax.swing.JButton create;
@@ -644,39 +674,26 @@ public class MyJFrame extends javax.swing.JFrame {
 
     }
 
-    public boolean exist(String s) {
-        int city = 0;
-        int country = 0;
+    public ArrayList<Integer> exist(String s) {
         ArrayList<Integer> ind = new ArrayList<Integer>();
-        boolean e = false;
         for (int i = 0; i < ap.size(); i++) {
             Airport a = ap.get(i);
             if (a.getCity().toLowerCase().equals(s.toLowerCase())) {
-                city +=1;
                 ind.add(i);
-                e = true;
             } else if (a.getCountry().toLowerCase().equals(s.toLowerCase())) {
-                country += 1;
                 ind.add(i);
-                e = true;
             }
         }
-        if (e == true) {
-            apChoosePanel.setVisible(true);
-            mainPanel.setVisible(false);
-            apChoose(ind, country,  city);
-        }
-        apChoosePanel.setVisible(false);
-        mainPanel.setVisible(true);
-        return e;
+        return ind;
     }
-    
-    public void apChoose(ArrayList<Integer> ind, int country, int city) {
-        String[] s = new String[ind.size()];
+
+    public void apChoose(ArrayList<Integer> ind) {
         for (int i = 0; i < ind.size(); i++) {
-            s[i] = ap.get(i).getName();
+            apNames.addItem(ap.get(ind.get(i)).getName());
         }
-        apNames.setModel();
+        apChoosePanel.setVisible(true);
+        mainPanel.setVisible(false);
+
     }
 
 }

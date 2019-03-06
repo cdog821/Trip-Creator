@@ -15,6 +15,12 @@ public class Destination
     private String location;
     private int numPeople;
     
+    public Destination(String location, String airport, int numPeople) {
+        this.location = location;
+        this.airport = airport;
+        this.numPeople = numPeople;
+    }
+    
     public Destination (String location, int numPeople) {
         this.location = location;
         this.numPeople = numPeople;
