@@ -61,7 +61,6 @@ public class MyJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         dest = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
-        viewTrip = new javax.swing.JButton();
         ppl = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         saveTripButton = new javax.swing.JButton();
@@ -184,18 +183,6 @@ public class MyJFrame extends javax.swing.JFrame {
             }
         });
 
-        viewTrip.setText("View Trip");
-        viewTrip.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                viewTripMouseClicked(evt);
-            }
-        });
-        viewTrip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewTripActionPerformed(evt);
-            }
-        });
-
         ppl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5+" }));
         ppl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,8 +277,7 @@ public class MyJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(clearTrip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(viewTrip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(8, 8, 8)))
                 .addContainerGap())
         );
@@ -301,23 +287,20 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveTripButton)
-                    .addComponent(openTrip)
+                    .addComponent(openTrip))
+                .addGap(18, 18, 18)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(confirmButton)
                     .addComponent(clearTrip))
                 .addGap(18, 18, 18)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(editButton, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(confirmButton))
-                        .addGap(18, 18, 18)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ppl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addButton)
-                            .addComponent(viewTrip))
-                        .addGap(12, 12, 12)))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ppl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addButton)
+                    .addComponent(editButton))
+                .addGap(12, 12, 12)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
@@ -468,7 +451,7 @@ public class MyJFrame extends javax.swing.JFrame {
             p = new PrintStream(new File(path.getCurrentDirectory() + "\\NetBeansProjects\\JFRAMEZZZZ69\\Trips" + File.separator + tripName.getText().trim() + ".txt"));
             tripName.setText("");
             for (int i = destinations.size(); i > 0; i--) {
-                p.println(destinations.get(destinations.size() - i).getLocation() + " " + destinations.get(destinations.size() - i).getNumPeople());
+                p.println(destinations.get(destinations.size() - i).getLocation() + " " + destinations.get(destinations.size() - i).getNumPeople() + " " + destinations.get(destinations.size() - i).getAirport());
             }
             System.out.println((char) 27 + "[32mGreat Success!" + (char) 27 + "[0m");
             output.setText("Great Success");
@@ -482,11 +465,15 @@ public class MyJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_saveButton2MouseClicked
 
     private void startButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startButtonMouseClicked
-        // TODO add your handling code here:
-        if (!exist(startLocation.getText()).isEmpty()) {
-            destinations.add(new Destination(capitalize(startLocation.getText()), startPeople.getSelectedIndex() + 1));
+        ArrayList<Integer> ind = exist(startLocation.getText());
+        if (ind.size() == 1) {
+            destinations.add(new Destination(dest.getText(), ap.get(ind.get(0)).getName(), ppl.getSelectedIndex()+1));
             createPanel.setVisible(false);
             mainPanel.setVisible(true);
+        } else if (startLocation.getText().equals("")) {
+            System.out.println("Enter a city");
+        } else if (!ind.isEmpty()) {
+            apChoose(ind);
         } else {
             System.out.println("Error: City Doesn't Exist");
         }
@@ -518,27 +505,15 @@ public class MyJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pplActionPerformed
 
-    private void viewTripActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewTripActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_viewTripActionPerformed
-
-    private void viewTripMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewTripMouseClicked
-        // TODO add your handling code here:
-        String[] dests = new String[destinations.size()];
-        for (int i = 0; i < destinations.size(); i++) {
-            dests[i] = (i + 1) + " - " + destinations.get(i).toString();
-        }
-        outList.setListData(dests);
-    }//GEN-LAST:event_viewTripMouseClicked
-
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         // TODO add your handling code here:
         ArrayList<Integer> ind = exist(dest.getText());
-        if (dest.getText().equals("")) {
+        if (ind.size() == 1) {
+            destinations.add(new Destination(dest.getText(), ap.get(ind.get(0)).getName(), ppl.getSelectedIndex()+1));
+        } else if (dest.getText().equals("")) {
             output.setText("Enter a City");
         } else if (destinations.isEmpty() && !ind.isEmpty()) {
-            destinations.add(new Destination(capitalize(dest.getText()), ppl.getSelectedIndex() + 1));
-            output.setText("Added");
+            apChoose(ind);
         } else if (!destinations.get(destinations.size() - 1).getLocation().equals(dest.getText()) && !ind.isEmpty()) {
             apChoose(ind);
         } else {
@@ -549,6 +524,7 @@ public class MyJFrame extends javax.swing.JFrame {
             }
         }
         dest.setText("");
+        view();
     }//GEN-LAST:event_addButtonMouseClicked
 
     private void destActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destActionPerformed
@@ -586,9 +562,11 @@ public class MyJFrame extends javax.swing.JFrame {
                 break;
             }
         }
-        destinations.add(new Destination(city, s, ppl.getSelectedIndex()+1));
+        destinations.add(new Destination(city, s, ppl.getSelectedIndex() + 1));
         mainPanel.setVisible(true);
         apChoosePanel.setVisible(false);
+        apNames.removeAllItems();
+        view();
     }//GEN-LAST:event_chooseBMouseClicked
 
     /**
@@ -629,7 +607,6 @@ public class MyJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField startLocation;
     private javax.swing.JComboBox<String> startPeople;
     private javax.swing.JTextField tripName;
-    private javax.swing.JButton viewTrip;
     // End of variables declaration//GEN-END:variables
 
     public String capitalize(String s) {
@@ -658,7 +635,8 @@ public class MyJFrame extends javax.swing.JFrame {
                         while (!carl.hasNextInt()) {
                             pl += carl.next() + " ";
                         }
-                        destinations.add(new Destination(pl.trim(), carl.nextInt()));
+                        int p = carl.nextInt();
+                        destinations.add(new Destination(pl.trim(), carl.nextLine(), p));
                         pl = "";
                     } else {
                         break;
@@ -671,7 +649,7 @@ public class MyJFrame extends javax.swing.JFrame {
             }
         }
         mainPanel.setVisible(true);
-
+        view();
     }
 
     public ArrayList<Integer> exist(String s) {
@@ -693,7 +671,17 @@ public class MyJFrame extends javax.swing.JFrame {
         }
         apChoosePanel.setVisible(true);
         mainPanel.setVisible(false);
+        if (createPanel.isVisible()) {
+            createPanel.setVisible(false);
+        }
+    }
 
+    public void view() {
+        String[] dests = new String[destinations.size()];
+        for (int i = 0; i < destinations.size(); i++) {
+            dests[i] = (i + 1) + " - " + destinations.get(i).toString();
+        }
+        outList.setListData(dests);
     }
 
 }

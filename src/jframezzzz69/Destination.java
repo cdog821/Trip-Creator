@@ -30,6 +30,9 @@ public class Destination
     }
     
     public String toString() {
+        if (numPeople == 1) {
+            return location + ", 1 person, at " + airport;
+        }
         return location + ", " + numPeople + " people, at " + airport;
     }
 
@@ -41,6 +44,10 @@ public class Destination
     public int getNumPeople()
     {
         return numPeople;
+    }
+
+    public String getAirport() {
+        return airport;
     }
     
     
