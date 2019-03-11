@@ -1,3 +1,7 @@
-Nelson 1  Nelson Airport
-Gjoa Haven 1  Gjoa Haven Airport
-Los Angeles 1 Whiteman Airport
+Seattle 1 Seattle Tacoma International Airport
+Los Angeles 1 Los Angeles International Airport
+Phoenix 1 Phoenix Sky Harbor International Airport
+Miami 1  Miami International Airport
+Tucson 1  Tucson International Airport
+Nassau 1 Lynden Pindling International Airport
+Seattle 1 Seattle Tacoma International Airport

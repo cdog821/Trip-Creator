@@ -18,6 +18,8 @@ public class MyJFrame extends javax.swing.JFrame {
     private ArrayList<Destination> destinations = new ArrayList<Destination>();
     private ArrayList<Airport> ap = new ArrayList<Airport>();
     private String fileName;
+    private int editmode;
+    private int selected;
 
     /**
      * Creates new form MyJFrame
@@ -32,7 +34,9 @@ public class MyJFrame extends javax.swing.JFrame {
         savePanel.setVisible(false);
         output.setEditable(false);
         apChoosePanel.setVisible(false);
+        editItem.setVisible(false);
         editPanel.setVisible(false);
+        editmode = 0;
     }
 
     /**
@@ -71,6 +75,7 @@ public class MyJFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         tripName = new javax.swing.JTextField();
         saveButton2 = new javax.swing.JButton();
+        BB1 = new javax.swing.JButton();
         createPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         startLocation = new javax.swing.JTextField();
@@ -85,6 +90,12 @@ public class MyJFrame extends javax.swing.JFrame {
         removeButton = new javax.swing.JButton();
         changeLocation = new javax.swing.JButton();
         submitEdit = new javax.swing.JButton();
+        editItem = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        LB2 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        PB2 = new javax.swing.JComboBox();
+        realChange = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trip  Creator");
@@ -104,18 +115,17 @@ public class MyJFrame extends javax.swing.JFrame {
         apChoosePanelLayout.setHorizontalGroup(
             apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(apChoosePanelLayout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
+                .addContainerGap(193, Short.MAX_VALUE)
                 .addGroup(apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apChoosePanelLayout.createSequentialGroup()
                         .addComponent(apNames, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(156, 156, 156))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apChoosePanelLayout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(222, 222, 222))))
-            .addGroup(apChoosePanelLayout.createSequentialGroup()
-                .addGap(231, 231, 231)
-                .addComponent(chooseB)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(222, 222, 222))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apChoosePanelLayout.createSequentialGroup()
+                        .addComponent(chooseB)
+                        .addGap(232, 232, 232))))
         );
         apChoosePanelLayout.setVerticalGroup(
             apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +134,9 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addComponent(apNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(29, 29, 29)
                 .addComponent(chooseB)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         jLabel4.setFont(new java.awt.Font("Tempus Sans ITC", 0, 36)); // NOI18N
@@ -327,6 +337,13 @@ public class MyJFrame extends javax.swing.JFrame {
             }
         });
 
+        BB1.setText("Back");
+        BB1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BB1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout savePanelLayout = new javax.swing.GroupLayout(savePanel);
         savePanel.setLayout(savePanelLayout);
         savePanelLayout.setHorizontalGroup(
@@ -339,16 +356,23 @@ public class MyJFrame extends javax.swing.JFrame {
                     .addGroup(savePanelLayout.createSequentialGroup()
                         .addGap(241, 241, 241)
                         .addComponent(saveButton2)))
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
             .addGroup(savePanelLayout.createSequentialGroup()
-                .addGap(215, 215, 215)
-                .addComponent(jLabel3)
+                .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(savePanelLayout.createSequentialGroup()
+                        .addGap(215, 215, 215)
+                        .addComponent(jLabel3))
+                    .addGroup(savePanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(BB1)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         savePanelLayout.setVerticalGroup(
             savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, savePanelLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addContainerGap()
+                .addComponent(BB1)
+                .addGap(56, 56, 56)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tripName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -416,7 +440,7 @@ public class MyJFrame extends javax.swing.JFrame {
             }
         });
 
-        changeLocation.setText("Change Location");
+        changeLocation.setText("Edit Item");
         changeLocation.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 changeLocationMouseClicked(evt);
@@ -432,7 +456,7 @@ public class MyJFrame extends javax.swing.JFrame {
             .addGroup(editPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPanelLayout.createSequentialGroup()
                         .addComponent(removeButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -448,7 +472,7 @@ public class MyJFrame extends javax.swing.JFrame {
         editPanelLayout.setVerticalGroup(
             editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -459,8 +483,60 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(output2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(submitEdit))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(submitEdit)))
+        );
+
+        jLabel8.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
+        jLabel8.setText("Location:");
+
+        jLabel9.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
+        jLabel9.setText("Number of People:");
+
+        PB2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5+" }));
+
+        realChange.setText("Change");
+        realChange.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                realChangeMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout editItemLayout = new javax.swing.GroupLayout(editItem);
+        editItem.setLayout(editItemLayout);
+        editItemLayout.setHorizontalGroup(
+            editItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editItemLayout.createSequentialGroup()
+                .addGroup(editItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editItemLayout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addGroup(editItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(editItemLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(LB2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(editItemLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(PB2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(editItemLayout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(realChange)))
+                .addContainerGap(236, Short.MAX_VALUE))
+        );
+        editItemLayout.setVerticalGroup(
+            editItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editItemLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addGroup(editItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(LB2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(editItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(PB2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(realChange)
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -478,6 +554,11 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addComponent(apChoosePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(editPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -497,6 +578,11 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addComponent(apChoosePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(editPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -573,7 +659,7 @@ public class MyJFrame extends javax.swing.JFrame {
             if (!ind.isEmpty()) {
                 output.setText("You are already in this city");
             } else {
-                output.setText("City does not exist");
+                output.setText("There are no airports here");
             }
         }
         dest.setText("");
@@ -595,37 +681,21 @@ public class MyJFrame extends javax.swing.JFrame {
         // TODO add your handling code here
     }//GEN-LAST:event_outListMouseClicked
 
-    private void chooseBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chooseBMouseClicked
-        // TODO add your handling code here:
-        String s = (String) apNames.getSelectedItem();
-        String city = null;
-        for (int i = 0; i < ap.size(); i++) {
-            if (ap.get(i).getName().equals(s)) {
-                city = ap.get(i).getCity();
-                break;
-            }
-        }
-        destinations.add(new Destination(city, s, ppl.getSelectedIndex() + 1));
-        mainPanel.setVisible(true);
-        apChoosePanel.setVisible(false);
-        apNames.removeAllItems();
-        view();
-    }//GEN-LAST:event_chooseBMouseClicked
-
     private void doneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_doneButtonMouseClicked
         // TODO add your handling code here:
         editPanel.setVisible(false);
         mainPanel.setVisible(true);
+        editmode = 0;
         view();
     }//GEN-LAST:event_doneButtonMouseClicked
 
     private void removeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeButtonMouseClicked
         // TODO add your handling code here:
-        int index = outList2.getSelectedIndex();
-        if (index == -1) {
+        selected = outList2.getSelectedIndex();
+        if (selected == -1) {
             output2.setText("Select an item to remove");
         } else {
-            destinations.remove(index);
+            destinations.remove(selected);
         }
         view();
     }//GEN-LAST:event_removeButtonMouseClicked
@@ -637,21 +707,70 @@ public class MyJFrame extends javax.swing.JFrame {
 
     private void changeLocationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeLocationMouseClicked
         // TODO add your handling code here:
-        int index = outList2.getSelectedIndex();
-        if (index == -1) {
+        selected = outList2.getSelectedIndex();
+        editmode = 1;
+        if (selected == -1) {
             output2.setText("Select an item to change");
         } else {
-            output2.setEditable(true);
-            output2.setText("Enter new location here");
+            editItem.setVisible(true);
+            editPanel.setVisible(false);
+            PB2.setSelectedIndex(destinations.get(selected).getNumPeople() - 1);
+            LB2.setText(destinations.get(selected).getLocation());
         }
         view();
     }//GEN-LAST:event_changeLocationMouseClicked
+
+    private void chooseBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chooseBMouseClicked
+        // TODO add your handling code here:
+        String s = (String) apNames.getSelectedItem();
+        String city = null;
+        for (int i = 0; i < ap.size(); i++) {
+            if (ap.get(i).getName().equals(s)) {
+                city = ap.get(i).getCity();
+                break;
+            }
+        }
+        if (editmode == 1) {
+            editPanel.setVisible(true);
+            apChoosePanel.setVisible(false);
+            destinations.remove(selected);
+            destinations.add(selected, new Destination(capitalize(LB2.getText()), s, PB2.getSelectedIndex() + 1));
+        } else {
+            destinations.add(new Destination(city, s, ppl.getSelectedIndex() + 1));
+            mainPanel.setVisible(true);
+            apChoosePanel.setVisible(false);
+        }
+        apNames.removeAllItems();
+        view();
+    }//GEN-LAST:event_chooseBMouseClicked
+
+    private void realChangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_realChangeMouseClicked
+        if (!LB2.getText().equals("")) {
+            ArrayList<Integer> ind = exist(LB2.getText());
+            if (ind.isEmpty()) {
+                LB2.setText("There are no airports here");
+            } else {
+                apChoose(ind);
+            }
+        } else {
+            LB2.setText("Enter a Location");
+        } 
+    }//GEN-LAST:event_realChangeMouseClicked
+
+    private void BB1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BB1MouseClicked
+        // TODO add your handling code here:
+        mainPanel.setVisible(true);
+        savePanel.setVisible(false);
+    }//GEN-LAST:event_BB1MouseClicked
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BB1;
+    private javax.swing.JTextField LB2;
+    private javax.swing.JComboBox PB2;
     private javax.swing.JButton addButton;
     private javax.swing.JPanel apChoosePanel;
     private javax.swing.JComboBox apNames;
@@ -663,6 +782,7 @@ public class MyJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField dest;
     private javax.swing.JButton doneButton;
     private javax.swing.JButton editButton;
+    private javax.swing.JPanel editItem;
     private javax.swing.JPanel editPanel;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
@@ -672,6 +792,8 @@ public class MyJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel mainPanel;
@@ -683,6 +805,7 @@ public class MyJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField output2;
     private javax.swing.JComboBox ppl;
     private javax.swing.JButton quickSave;
+    private javax.swing.JButton realChange;
     private javax.swing.JButton removeButton;
     private javax.swing.JButton saveButton2;
     private javax.swing.JPanel savePanel;
@@ -761,6 +884,9 @@ public class MyJFrame extends javax.swing.JFrame {
         if (createPanel.isVisible()) {
             createPanel.setVisible(false);
         }
+        if (editItem.isVisible()) {
+            editItem.setVisible(false);
+        }
     }
 
     public void view() {
@@ -777,7 +903,7 @@ public class MyJFrame extends javax.swing.JFrame {
         JFileChooser path = new JFileChooser();
         if (fileName.isEmpty()) {
             fileName = tripName.getText().trim() + ".txt";
-        } 
+        }
         try {
             // TODO add your handling code here:
             p = new PrintStream(new File(path.getCurrentDirectory() + "\\NetBeansProjects\\JFRAMEZZZZ69\\Trips" + File.separator + fileName));
