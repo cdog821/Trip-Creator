@@ -20,6 +20,7 @@ public class MyJFrame extends javax.swing.JFrame {
     private String fileName;
     private int editmode;
     private int selected;
+    private int typeS;
 
     /**
      * Creates new form MyJFrame
@@ -723,25 +724,36 @@ public class MyJFrame extends javax.swing.JFrame {
     private void chooseBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chooseBMouseClicked
         // TODO add your handling code here:
         String s = (String) apNames.getSelectedItem();
-        String city = null;
-        for (int i = 0; i < ap.size(); i++) {
-            if (ap.get(i).getName().equals(s)) {
-                city = ap.get(i).getCity();
-                break;
+        if (typeS == 0) {
+            String city = null;
+            for (int i = 0; i < ap.size(); i++) {
+                if (ap.get(i).getName().equals(s)) {
+                    city = ap.get(i).getCity();
+                    break;
+                }
             }
-        }
-        if (editmode == 1) {
-            editPanel.setVisible(true);
-            apChoosePanel.setVisible(false);
-            destinations.remove(selected);
-            destinations.add(selected, new Destination(capitalize(LB2.getText()), s, PB2.getSelectedIndex() + 1));
+            if (editmode == 1) {
+                editPanel.setVisible(true);
+                apChoosePanel.setVisible(false);
+                destinations.remove(selected);
+                destinations.add(selected, new Destination(capitalize(LB2.getText()), s, PB2.getSelectedIndex() + 1));
+            } else {
+                destinations.add(new Destination(city, s, ppl.getSelectedIndex() + 1));
+                mainPanel.setVisible(true);
+                apChoosePanel.setVisible(false);
+            }
+            apNames.removeAllItems();
+            view();
         } else {
-            destinations.add(new Destination(city, s, ppl.getSelectedIndex() + 1));
-            mainPanel.setVisible(true);
-            apChoosePanel.setVisible(false);
+            apNames.removeAllItems();
+            for (int i = 0; i < ap.size(); i++) {
+                if (s.equals(ap.get(i).getCity())) {
+                    apNames.addItem(ap.get(i).getName());
+                }
+            }
+            jLabel7.setText("Choose Airport");
+            typeS = 0;
         }
-        apNames.removeAllItems();
-        view();
     }//GEN-LAST:event_chooseBMouseClicked
 
     private void realChangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_realChangeMouseClicked
@@ -754,7 +766,7 @@ public class MyJFrame extends javax.swing.JFrame {
             }
         } else {
             LB2.setText("Enter a Location");
-        } 
+        }
     }//GEN-LAST:event_realChangeMouseClicked
 
     private void BB1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BB1MouseClicked
@@ -860,6 +872,7 @@ public class MyJFrame extends javax.swing.JFrame {
         fileName = j.getSelectedFile().getName();
         mainPanel.setVisible(true);
         view();
+        System.out.println(distance(getC(destinations.get(0).getAirport()), getC(destinations.get(1).getAirport())));
     }
 
     public ArrayList<Integer> exist(String s) {
@@ -868,17 +881,28 @@ public class MyJFrame extends javax.swing.JFrame {
             Airport a = ap.get(i);
             if (a.getCity().toLowerCase().equals(s.toLowerCase())) {
                 ind.add(i);
+                typeS = 0;
             } else if (a.getCountry().toLowerCase().equals(s.toLowerCase())) {
                 ind.add(i);
+                typeS = 1;
             }
         }
         return ind;
     }
 
     public void apChoose(ArrayList<Integer> ind) {
-        for (int i = 0; i < ind.size(); i++) {
-            apNames.addItem(ap.get(ind.get(i)).getName());
+        if (typeS == 0) {
+            jLabel7.setText("Choose Airport");
+            for (int i = 0; i < ind.size(); i++) {
+                apNames.addItem(ap.get(ind.get(i)).getName());
+            }
+        } else {
+            jLabel7.setText("Choose City");
+            for (int i = 0; i < ind.size(); i++) {
+                apNames.addItem(ap.get(ind.get(i)).getCity());
+            }
         }
+
         apChoosePanel.setVisible(true);
         mainPanel.setVisible(false);
         if (createPanel.isVisible()) {
@@ -921,6 +945,21 @@ public class MyJFrame extends javax.swing.JFrame {
         fileName = tripName.getText();
         savePanel.setVisible(false);
         mainPanel.setVisible(true);
+    }
+    public double distance(Coordinate one, Coordinate two) {
+        double latChange = Math.toRadians(two.getY() - one.getY());
+        double longChange = Math.toRadians(two.getX() - one.getX());
+        double haversineAngle = (Math.sin(latChange/2) * Math.sin(latChange/2)) + Math.cos(one.getX())*Math.cos(two.getX())*Math.sin(longChange/2)*Math.sin(longChange/2);
+        return 2 * 6731e3 * Math.asin(Math.sqrt(haversineAngle));
+    }
+    
+    public Coordinate getC(String airport) {
+        for (int i = 0; i < ap.size(); i++) {
+            if (ap.get(i).getName().equals(airport)) {
+                return ap.get(i).getC();
+            }
+        }
+        return null;
     }
 
 }
