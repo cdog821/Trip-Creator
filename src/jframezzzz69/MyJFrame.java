@@ -38,6 +38,7 @@ public class MyJFrame extends javax.swing.JFrame {
         editItem.setVisible(false);
         editPanel.setVisible(false);
         editmode = 0;
+        costPanel.setVisible(false);
     }
 
     /**
@@ -72,6 +73,7 @@ public class MyJFrame extends javax.swing.JFrame {
         outList = new javax.swing.JList<String>();
         editButton = new javax.swing.JButton();
         quickSave = new javax.swing.JButton();
+        calcCost = new javax.swing.JButton();
         savePanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         tripName = new javax.swing.JTextField();
@@ -97,6 +99,10 @@ public class MyJFrame extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         PB2 = new javax.swing.JComboBox();
         realChange = new javax.swing.JButton();
+        costPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        nameList = new javax.swing.JList();
+        backToMain = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Trip  Creator");
@@ -258,6 +264,13 @@ public class MyJFrame extends javax.swing.JFrame {
             }
         });
 
+        calcCost.setText("Calculate Cost");
+        calcCost.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calcCostMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -279,17 +292,19 @@ public class MyJFrame extends javax.swing.JFrame {
                                     .addComponent(dest, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(26, 26, 26)
                                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ppl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(34, 34, 34)
-                                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel2)
+                                    .addComponent(ppl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(calcCost)))
                             .addGroup(mainPanelLayout.createSequentialGroup()
                                 .addComponent(saveTripButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(openTrip)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(quickSave)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(clearTrip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -308,7 +323,8 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(clearTrip))
+                    .addComponent(clearTrip)
+                    .addComponent(calcCost))
                 .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -407,7 +423,7 @@ public class MyJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(startPeople, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         createPanelLayout.setVerticalGroup(
             createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,7 +438,7 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addComponent(startPeople, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(startButton)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         jScrollPane2.setViewportView(outList2);
@@ -540,6 +556,36 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addContainerGap(167, Short.MAX_VALUE))
         );
 
+        jScrollPane3.setViewportView(nameList);
+
+        backToMain.setText("Back");
+        backToMain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backToMainMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout costPanelLayout = new javax.swing.GroupLayout(costPanel);
+        costPanel.setLayout(costPanelLayout);
+        costPanelLayout.setHorizontalGroup(
+            costPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(costPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(costPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backToMain)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        costPanelLayout.setVerticalGroup(
+            costPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(costPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backToMain)
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -559,6 +605,11 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(costPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -583,6 +634,11 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(costPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -775,6 +831,28 @@ public class MyJFrame extends javax.swing.JFrame {
         savePanel.setVisible(false);
     }//GEN-LAST:event_BB1MouseClicked
 
+    private void calcCostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcCostMouseClicked
+        // TODO add your handling code here:
+        costPanel.setVisible(true);
+        mainPanel.setVisible(false);
+        double cost;
+        double total = 0;
+        String[] list = new String[destinations.size()];
+        for (int i = 0; i < destinations.size() - 1; i++) {
+            cost = (distance(getC(destinations.get(i).getAirport()), getC(destinations.get(i + 1).getAirport())) * 0.1);
+            total += cost;
+            list[i] = destinations.get(i).getLocation() + " --> " + destinations.get(i + 1).getLocation() + " = $" + (int) cost;
+        }
+        list[destinations.size() - 1] = "Total = " + total;
+        nameList.setListData(list);
+    }//GEN-LAST:event_calcCostMouseClicked
+
+    private void backToMainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToMainMouseClicked
+        // TODO add your handling code here:
+        mainPanel.setVisible(true);
+        costPanel.setVisible(false);
+    }//GEN-LAST:event_backToMainMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -786,9 +864,12 @@ public class MyJFrame extends javax.swing.JFrame {
     private javax.swing.JButton addButton;
     private javax.swing.JPanel apChoosePanel;
     private javax.swing.JComboBox apNames;
+    private javax.swing.JButton backToMain;
+    private javax.swing.JButton calcCost;
     private javax.swing.JButton changeLocation;
     private javax.swing.JButton chooseB;
     private javax.swing.JButton clearTrip;
+    private javax.swing.JPanel costPanel;
     private javax.swing.JButton create;
     private javax.swing.JPanel createPanel;
     private javax.swing.JTextField dest;
@@ -808,7 +889,9 @@ public class MyJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JList nameList;
     private javax.swing.JButton openTrip;
     private javax.swing.JButton openTrip1;
     private javax.swing.JList<String> outList;
@@ -845,6 +928,7 @@ public class MyJFrame extends javax.swing.JFrame {
         JFileChooser j = new JFileChooser();
         j.setCurrentDirectory(new File(j.getCurrentDirectory() + "\\NetBeansProjects\\JFRAMEZZZZ69\\Trips"));
         int selection = j.showOpenDialog(null);
+
         if (selection == 0) {
             File selected = j.getSelectedFile();
             try {
@@ -868,11 +952,10 @@ public class MyJFrame extends javax.swing.JFrame {
                 output.setText("ERROR");
                 Logger.getLogger(MyJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+            fileName = j.getSelectedFile().getName();
+            mainPanel.setVisible(true);
+            view();
         }
-        fileName = j.getSelectedFile().getName();
-        mainPanel.setVisible(true);
-        view();
-        System.out.println(distance(getC(destinations.get(0).getAirport()), getC(destinations.get(1).getAirport())));
     }
 
     public ArrayList<Integer> exist(String s) {
@@ -925,7 +1008,13 @@ public class MyJFrame extends javax.swing.JFrame {
     public void saves() {
         PrintStream p = null;
         JFileChooser path = new JFileChooser();
-        if (fileName.isEmpty()) {
+        if (fileName.equals(null)) {
+            if (destinations.isEmpty()) {
+                fileName = "Trip";
+            } else {
+                fileName.equals(destinations.get(0).getLocation());
+            }
+        } else if (fileName.isEmpty()) {
             fileName = tripName.getText().trim() + ".txt";
         }
         try {
@@ -946,16 +1035,18 @@ public class MyJFrame extends javax.swing.JFrame {
         savePanel.setVisible(false);
         mainPanel.setVisible(true);
     }
+
     public double distance(Coordinate one, Coordinate two) {
         double latChange = Math.toRadians(two.getY() - one.getY());
         double longChange = Math.toRadians(two.getX() - one.getX());
-        double haversineAngle = (Math.sin(latChange/2) * Math.sin(latChange/2)) + Math.cos(one.getX())*Math.cos(two.getX())*Math.sin(longChange/2)*Math.sin(longChange/2);
-        return 2 * 6731e3 * Math.asin(Math.sqrt(haversineAngle));
+        double haversineAngle = (Math.sin(latChange / 2) * Math.sin(latChange / 2)) + Math.cos(one.getX()) * Math.cos(two.getX()) * Math.sin(longChange / 2) * Math.sin(longChange / 2);
+        return (2 * 6731e3 * Math.asin(Math.sqrt(haversineAngle))) / 1000;
     }
-    
+
     public Coordinate getC(String airport) {
         for (int i = 0; i < ap.size(); i++) {
-            if (ap.get(i).getName().equals(airport)) {
+            if (ap.get(i).getName().toLowerCase().trim().equals(airport.toLowerCase().trim())) {
+                System.out.println(ap.get(i).getC());
                 return ap.get(i).getC();
             }
         }
