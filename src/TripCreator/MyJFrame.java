@@ -1,4 +1,4 @@
-package jframezzzz69;
+package TripCreator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,7 +70,7 @@ public class MyJFrame extends javax.swing.JFrame {
         clearTrip = new javax.swing.JButton();
         output = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        outList = new javax.swing.JList<String>();
+        outList = new javax.swing.JList<>();
         editButton = new javax.swing.JButton();
         quickSave = new javax.swing.JButton();
         calcCost = new javax.swing.JButton();
@@ -83,7 +83,7 @@ public class MyJFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         startLocation = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        startPeople = new javax.swing.JComboBox<String>();
+        startPeople = new javax.swing.JComboBox<>();
         startButton = new javax.swing.JButton();
         editPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -402,7 +402,7 @@ public class MyJFrame extends javax.swing.JFrame {
 
         jLabel6.setText("How Many People?");
 
-        startPeople.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5+" }));
+        startPeople.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5+" }));
 
         startButton.setText("Start");
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {

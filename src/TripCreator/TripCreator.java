@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jframezzzz69;
+package TripCreator;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -18,7 +18,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  *
  * @author linzcar20
  */
-public class JFRAMEZZZZ69
+public class TripCreator
 {
 
     /**
