@@ -105,10 +105,10 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="193" max="32767" attributes="0"/>
+                  <EmptySpace pref="247" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="apNames" min="-2" pref="213" max="-2" attributes="0"/>
+                          <Component id="apNames" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -622,11 +622,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="doneButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="output2" max="32767" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="submitEdit" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="output2" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -646,10 +642,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="287" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="output2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="submitEdit" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="output2" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -693,11 +686,6 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="changeLocationMouseClicked"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="submitEdit">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Submit"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -21,6 +21,7 @@ public class MyJFrame extends javax.swing.JFrame {
     private int editmode;
     private int selected;
     private int typeS;
+    private int x;
 
     /**
      * Creates new form MyJFrame
@@ -28,11 +29,13 @@ public class MyJFrame extends javax.swing.JFrame {
     public MyJFrame(ArrayList<Airport> ap) {
         this.ap = ap;
         initComponents();
+        fileName = "";
         outList.setEnabled(false);
         output2.setEditable(false);
         createPanel.setVisible(false);
         mainPanel.setVisible(false);
         savePanel.setVisible(false);
+        x = 0;
         output.setEditable(false);
         apChoosePanel.setVisible(false);
         editItem.setVisible(false);
@@ -92,7 +95,6 @@ public class MyJFrame extends javax.swing.JFrame {
         doneButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
         changeLocation = new javax.swing.JButton();
-        submitEdit = new javax.swing.JButton();
         editItem = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         LB2 = new javax.swing.JTextField();
@@ -122,10 +124,10 @@ public class MyJFrame extends javax.swing.JFrame {
         apChoosePanelLayout.setHorizontalGroup(
             apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(apChoosePanelLayout.createSequentialGroup()
-                .addContainerGap(193, Short.MAX_VALUE)
+                .addContainerGap(247, Short.MAX_VALUE)
                 .addGroup(apChoosePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apChoosePanelLayout.createSequentialGroup()
-                        .addComponent(apNames, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(apNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(156, 156, 156))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, apChoosePanelLayout.createSequentialGroup()
                         .addComponent(jLabel7)
@@ -464,8 +466,6 @@ public class MyJFrame extends javax.swing.JFrame {
             }
         });
 
-        submitEdit.setText("Submit");
-
         javax.swing.GroupLayout editPanelLayout = new javax.swing.GroupLayout(editPanel);
         editPanel.setLayout(editPanelLayout);
         editPanelLayout.setHorizontalGroup(
@@ -480,10 +480,7 @@ public class MyJFrame extends javax.swing.JFrame {
                         .addComponent(changeLocation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(doneButton))
-                    .addGroup(editPanelLayout.createSequentialGroup()
-                        .addComponent(output2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(submitEdit)))
+                    .addComponent(output2))
                 .addContainerGap())
         );
         editPanelLayout.setVerticalGroup(
@@ -498,9 +495,7 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(output2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(submitEdit)))
+                .addComponent(output2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel8.setFont(new java.awt.Font("Tempus Sans ITC", 0, 14)); // NOI18N
@@ -648,7 +643,6 @@ public class MyJFrame extends javax.swing.JFrame {
     private void openTrip1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openTrip1MouseClicked
         // TODO add your handling code here:
         openButtons();
-        sidePanel.setVisible(false);
     }//GEN-LAST:event_openTrip1MouseClicked
 
     private void createMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createMouseClicked
@@ -670,6 +664,7 @@ public class MyJFrame extends javax.swing.JFrame {
         } else if (startLocation.getText().equals("")) {
             System.out.println("Enter a city");
         } else if (!ind.isEmpty()) {
+            x = 1;
             apChoose(ind);
         } else {
             System.out.println("Error: City Doesn't Exist");
@@ -793,6 +788,12 @@ public class MyJFrame extends javax.swing.JFrame {
                 apChoosePanel.setVisible(false);
                 destinations.remove(selected);
                 destinations.add(selected, new Destination(capitalize(LB2.getText()), s, PB2.getSelectedIndex() + 1));
+            } else if (x == 1) {
+                destinations.add(new Destination(capitalize(startLocation.getText()), s, startPeople.getSelectedIndex()+1));
+                mainPanel.setVisible(true);
+                apChoosePanel.setVisible(false);
+                createPanel.setVisible(false);
+                x = 0;
             } else {
                 destinations.add(new Destination(city, s, ppl.getSelectedIndex() + 1));
                 mainPanel.setVisible(true);
@@ -840,10 +841,11 @@ public class MyJFrame extends javax.swing.JFrame {
         String[] list = new String[destinations.size()];
         for (int i = 0; i < destinations.size() - 1; i++) {
             cost = (distance(getC(destinations.get(i).getAirport()), getC(destinations.get(i + 1).getAirport())) * 0.1);
+            cost *= destinations.get(i + 1).getNumPeople();
             total += cost;
-            list[i] = destinations.get(i).getLocation() + " --> " + destinations.get(i + 1).getLocation() + " = $" + (int) cost;
+            list[i] = destinations.get(i).getLocation() + " --> " + destinations.get(i + 1).getLocation() + " = $" + (int) cost + ".";
         }
-        list[destinations.size() - 1] = "Total = " + total;
+        list[destinations.size() - 1] = "Total = $" + (int) total + ".";
         nameList.setListData(list);
     }//GEN-LAST:event_calcCostMouseClicked
 
@@ -909,7 +911,6 @@ public class MyJFrame extends javax.swing.JFrame {
     private javax.swing.JButton startButton;
     private javax.swing.JTextField startLocation;
     private javax.swing.JComboBox<String> startPeople;
-    private javax.swing.JButton submitEdit;
     private javax.swing.JTextField tripName;
     // End of variables declaration//GEN-END:variables
 
@@ -926,7 +927,7 @@ public class MyJFrame extends javax.swing.JFrame {
 
     private void openButtons() {
         JFileChooser j = new JFileChooser();
-        j.setCurrentDirectory(new File(j.getCurrentDirectory() + "\\NetBeansProjects\\JFRAMEZZZZ69\\Trips"));
+        j.setCurrentDirectory(new File(j.getCurrentDirectory() + "\\NetBeansProjects\\Trip Creator\\Trips"));
         int selection = j.showOpenDialog(null);
 
         if (selection == 0) {
@@ -948,11 +949,15 @@ public class MyJFrame extends javax.swing.JFrame {
                     }
                 }
                 output.setText("Opened");
+                sidePanel.setVisible(false);
             } catch (FileNotFoundException ex) {
                 output.setText("ERROR");
                 Logger.getLogger(MyJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
             fileName = j.getSelectedFile().getName();
+            if (fileName.substring(fileName.length() - 4).equals(".txt")) {
+                fileName = fileName.substring(0, fileName.length() - 4);
+            }
             mainPanel.setVisible(true);
             view();
         }
@@ -962,10 +967,10 @@ public class MyJFrame extends javax.swing.JFrame {
         ArrayList<Integer> ind = new ArrayList<Integer>();
         for (int i = 0; i < ap.size(); i++) {
             Airport a = ap.get(i);
-            if (a.getCity().toLowerCase().equals(s.toLowerCase())) {
+            if (a.getCity().toLowerCase().trim().equals(s.toLowerCase().trim())) {
                 ind.add(i);
                 typeS = 0;
-            } else if (a.getCountry().toLowerCase().equals(s.toLowerCase())) {
+            } else if (a.getCountry().toLowerCase().trim().equals(s.toLowerCase().trim())) {
                 ind.add(i);
                 typeS = 1;
             }
@@ -977,7 +982,7 @@ public class MyJFrame extends javax.swing.JFrame {
         if (typeS == 0) {
             jLabel7.setText("Choose Airport");
             for (int i = 0; i < ind.size(); i++) {
-                apNames.addItem(ap.get(ind.get(i)).getName());
+                apNames.addItem((String) ap.get(ind.get(i)).getName());
             }
         } else {
             jLabel7.setText("Choose City");
@@ -1008,24 +1013,30 @@ public class MyJFrame extends javax.swing.JFrame {
     public void saves() {
         PrintStream p = null;
         JFileChooser path = new JFileChooser();
-        if (fileName.equals(null)) {
+        if (fileName.equals("")) {
             if (destinations.isEmpty()) {
-                fileName = "Trip";
+                fileName = "empty";
             } else {
-                fileName.equals(destinations.get(0).getLocation());
+                if (tripName.getText().equals("")) {
+                    fileName = destinations.get(0).getLocation();
+                } else {
+                    fileName = tripName.getText();
+                }
             }
-        } else if (fileName.isEmpty()) {
-            fileName = tripName.getText().trim() + ".txt";
         }
         try {
             // TODO add your handling code here:
-            p = new PrintStream(new File(path.getCurrentDirectory() + "\\NetBeansProjects\\JFRAMEZZZZ69\\Trips" + File.separator + fileName));
-            tripName.setText("");
-            for (int i = destinations.size(); i > 0; i--) {
-                p.println(destinations.get(destinations.size() - i).getLocation() + " " + destinations.get(destinations.size() - i).getNumPeople() + " " + destinations.get(destinations.size() - i).getAirport());
+            if (!fileName.isEmpty()) {
+                p = new PrintStream(new File(path.getCurrentDirectory() + "\\NetBeansProjects\\Trip Creator\\Trips" + File.separator + fileName + ".txt"));
+                tripName.setText("");
+                for (int i = destinations.size(); i > 0; i--) {
+                    p.println(destinations.get(destinations.size() - i).getLocation() + " " + destinations.get(destinations.size() - i).getNumPeople() + " " + destinations.get(destinations.size() - i).getAirport());
+                }
+                System.out.println((char) 27 + "[32mGreat Success!" + (char) 27 + "[0m");
+                output.setText("Great Success");
+            } else {
+                System.out.println("error");
             }
-            System.out.println((char) 27 + "[32mGreat Success!" + (char) 27 + "[0m");
-            output.setText("Great Success");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(MyJFrame.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -1040,13 +1051,12 @@ public class MyJFrame extends javax.swing.JFrame {
         double latChange = Math.toRadians(two.getY() - one.getY());
         double longChange = Math.toRadians(two.getX() - one.getX());
         double haversineAngle = (Math.sin(latChange / 2) * Math.sin(latChange / 2)) + Math.cos(one.getX()) * Math.cos(two.getX()) * Math.sin(longChange / 2) * Math.sin(longChange / 2);
-        return (2 * 6731e3 * Math.asin(Math.sqrt(haversineAngle))) / 1000;
+        return ((2 * 6731e3 * Math.asin(Math.sqrt(haversineAngle))) / 1000);
     }
 
     public Coordinate getC(String airport) {
         for (int i = 0; i < ap.size(); i++) {
             if (ap.get(i).getName().toLowerCase().trim().equals(airport.toLowerCase().trim())) {
-                System.out.println(ap.get(i).getC());
                 return ap.get(i).getC();
             }
         }
